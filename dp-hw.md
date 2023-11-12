@@ -148,10 +148,10 @@ dp[n+1];
 dp[0]=1;
 dp[1]=1;
 for i=2 to n do:
-dp[i]=0;
-for j=0 to i-1 do:
-dp[i]+=dp[j]*dp[i-1-j];
-end for
+    dp[i]=0;
+    for j=0 to i-1 do:
+        dp[i]+=dp[j]*dp[i-1-j];
+    end for
 end for
 return dp[n];
 end function
