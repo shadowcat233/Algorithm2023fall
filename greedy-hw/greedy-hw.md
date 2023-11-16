@@ -23,14 +23,11 @@ end function
 // 输入为n个task的数组tasks，输出为最短完成时间
 function CommandoWar(n,tasks)
 b_time=0;
-for i=0 to n-1 do:
-    b_time+=tasks[i].brief;
-end for
 sort(tasks,tasks+n,cmp);
 done_time=INT_MAX;
-for i=n-1 to 0 do:
+for i=0 to n-1 do:
+    b_time+=tasks[i].brief;
     done_time=max(done_time,b_time+tasks[i].exec);
-    b_time-=tasks.brief[i];
 end for
 return done_time;
 end function 
@@ -44,6 +41,9 @@ end function
 时间复杂度为$O(logn)$：排序需$O(logn)$，计算done_time需$O(n)$.  
 空间复杂度为$O(n)$：仅需保存tasks数组。如果不算tasks数组的话空间复杂度为$O(1)$.
 ## 第二题 DNA Consensus String
+### 思路
+似乎也没有什么特别好的办法，直接模拟即可。  
+对二维数组dna[m][n]，其中每一行表示一组DNA。对dna的每一列，找到重复最多的碱基并记录下来，如果有重复次数相同的，选择字母序较小的那一个。将得到的碱基按序拼接即可得到答案。
 ### 伪代码
 ```
 function char2num(c)
@@ -85,11 +85,16 @@ print(str);
 print(dist);
 end function
 ```
+### 正确性证明
+整个dna序列的汉明距离为每个位置的汉明距离之和。因此，只要能保证每个位置的汉明距离最小，就能使整个dna序列的汉明距离最小。  
 ### 算法复杂度
 时间复杂度为$O(m*n)$：对dna数组遍历一遍即可。  
-不算dna数组的话，空间复杂度为$O(1)$.
+不算dna数组的话，空间复杂度为$O(1)$.  
+因为至少也得把输入遍历一遍，应该没有比本算法复杂度更低的算法了。
 ## 第三题 Opponents
-water
+### 思路
+只有对手都出席才可能被打败。每天检查对手是否都来，如果都来了则标记为“失败”，反之为成功。  
+用双指针保存成功的最长持续时间（长度）。j指针始终向后走一天，如果该天成功则i指针不动，否则i指针指向j指针的后方。
 ### 伪代码
 ```
 function Opponents(opnts,m,n)
@@ -99,33 +104,41 @@ i=j=0;
 for j=0 to n-1 do:
     fail=1;
     for k=0 to m-1 do:
-        fail&=opnts[k][j];
+        fail&=opnts[k][j]; //有对手不出席则不会被打败
     end for
     if fail==1 then:
-        i=j+1;
+        i=j+1; //下一次成功必须在j之后
     end if
     else then:
-        maxlen=max(maxlen,j-i+1);
+        maxlen=max(maxlen,j-i+1); //更新长度
     end else
 end for
 return maxlen;
 end function
 ```
+### 正确性证明
+失败时令i=j+1是为了计算可能的最长时间时i指向成功序列。且，i指向的位置的前一天失败了，所以i指向的位置是成功序列的第一天。不断更新最长成功序列的长度即可得到答案，故而正确。
+### 算法复杂度
+时间复杂度为$O(m*n)$，空间复杂度（不算输入）为$O(1)$.
 ## 第四题 Minimum Varied Number
-123456789water
+### 思路
+要想让答案最小，前面的数字越小越好，位数越少越好。  
+故，先确定最后一位数字是9，然后让输入数字减去9。如果输入数字小于9则把这个数字放到最后一位，计算结束。接着按8、7、6、5、4、3、2、1的顺序对十位、百位一直到亿位重复此过程直到计算结束。这样算出来的数满足最高位最小且位数最少，所得即为所求。
 ### 伪代码
 ```
 function MinimumVariedNumber(num)
 dgt=9;
 ans=0;
+pow=1;
 while num>0&&dgt>0 do:
     if num>=dgt then:
         num-=dgt;
-        ans=ans*10+dgt;
+        ans+=pow*dgt;
+        pow*=10;
         dgt--;
     end if
     else then:
-        ans=ans*10+num;
+        ans+=pow*num;
         num=0;
     end else
 end while
@@ -133,8 +146,13 @@ if num>0 then return -1;
 return ans;
 end function
 ```
+### 正确性证明
+从后往前进行判断，按9、8、7...这个最大的递减序列取数，可以保证剩下的数字和最小。每一位都取到可以取得的最大，使输出结果位数最小。故最终结果是最小的。
+### 算法复杂度
+时间复杂度为$O(1)$，因为最多需要执行9次。空间复杂度为$O(1)$.
 ## 第五题 Joey Takes Money[^1]
-直接累乘water
+### 思路
+我们都知道，乘积一定时，两个数相差越大其和越大。所以不妨每次交换时把$a_i$和$a_j$换成1和$a_i*a_j$。则最终的数组为n-1个1和数组累乘之积。
 ### 伪代码
 ```
 function JoeyTakesMoney(money,n)
@@ -145,4 +163,10 @@ end for
 return (mul+n-1)*2022;
 end function
 ```
+### 正确性证明
+假设我们找到了一组$a_i$和$a_j$，使将其替换为1和$a_i*a_j$后数组最大。  
+那么接下来，被换成1的数就不需要和别的数一起被选中了，因为1已经是最小值，换数最好的结果就是互换，没有意义。  
+还剩下n-1个数需要进行换数。重复过程，最终的数组会是n-1个1和数组累乘之积。这时数组的和最大。
+### 算法复杂度
+时间复杂度为$O(n)$，空间复杂度（不算输入）为$O(1)$.  
 [^1]:RIP Chandler Muriel Bing
