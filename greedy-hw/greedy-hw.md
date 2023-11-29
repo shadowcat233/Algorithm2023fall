@@ -32,6 +32,30 @@ end for
 return done_time;
 end function 
 ```
+按题目要求进行输入输出：
+```c
+int main()
+{
+    int case=1;
+    int n,b,j;
+    task tasks[MAX];
+    scanf("%d",&n);
+    while(n)
+    {
+        int i;
+        for(i=0;i<n;i++)
+        {
+            scanf("%d %d",&b,&j);
+            tasks[i].brief=b;
+            tasks[i].exec=j;
+        }
+        printf("CASE %d: %d\n",case,ComandoWar(n,tasks));
+        case++;
+        scanf("%d",&n);
+    }
+    return 0;
+}
+```
 ### 正确性证明
 现在tasks数组以按exec从大到小的顺序排序好，并按上述伪代码算出了结果done_time。假设tasks[n-1]不是在最后一个执行：  
 1.如果$done\_time=tasks[n-1].exec+\sum_{i=0}^{n-1}tasks[i].brief$，显然更改位置后的时间会延长。  
@@ -85,6 +109,24 @@ print(str);
 print(dist);
 end function
 ```
+按题目要求进行输入输出：
+```cpp
+int main()
+{
+    int m,n;
+    scanf("%d %d",&m,&n);
+    vector<vector<char>> dna(m,vactor<char>(n));
+    for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            scanf("%d",&dna[i][j]);
+        }
+    }
+    DNAConsensusString(dna,m,n);
+    return 0;
+}
+```
 ### 正确性证明
 整个dna序列的汉明距离为每个位置的汉明距离之和。因此，只要能保证每个位置的汉明距离最小，就能使整个dna序列的汉明距离最小。  
 ### 算法复杂度
@@ -97,14 +139,14 @@ end function
 用双指针保存成功的最长持续时间（长度）。j指针始终向后走一天，如果该天成功则i指针不动，否则i指针指向j指针的后方。
 ### 伪代码
 ```
-function Opponents(opnts,m,n)
+function Opponents(opnts,d,n)
 fail=1;
 maxlen=0;
 i=j=0;
-for j=0 to n-1 do:
+for j=0 to d-1 do:
     fail=1;
-    for k=0 to m-1 do:
-        fail&=opnts[k][j]; //有对手不出席则不会被打败
+    for k=0 to n-1 do:
+        fail&=opnts[j][k]; //有对手不出席则不会被打败
     end for
     if fail==1 then:
         i=j+1; //下一次成功必须在j之后
@@ -115,6 +157,24 @@ for j=0 to n-1 do:
 end for
 return maxlen;
 end function
+```
+按程序要求进行输入输出：
+```cpp
+int main()
+{
+    int n,d;
+    cin>>n>>d;
+    vector<vector<int>> opnts(d,vector<int>(n));
+    for(int i=0;i<d;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            cin>>opnts[i][j];
+        }
+    }
+    cout<<Opponents(opnts,d,n)<<endl;
+    return 0;
+}
 ```
 ### 正确性证明
 失败时令i=j+1是为了计算可能的最长时间时i指向成功序列。且，i指向的位置的前一天失败了，所以i指向的位置是成功序列的第一天。不断更新最长成功序列的长度即可得到答案，故而正确。
@@ -146,6 +206,21 @@ if num>0 then return -1;
 return ans;
 end function
 ```
+按题目要求输入输出;
+```cpp
+int main()
+{
+    int t,s;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        cin>>s;
+        cout<<MinimumVariedNumber(s)<<" ";
+    }
+    cout<<endl;
+    return 0;
+}
+```
 ### 正确性证明
 从后往前进行判断，按9、8、7...这个最大的递减序列取数，可以保证剩下的数字和最小。每一位都取到可以取得的最大，使输出结果位数最小。故最终结果是最小的。
 ### 算法复杂度
@@ -162,6 +237,25 @@ for i=0 to n-1 do:
 end for
 return (mul+n-1)*2022;
 end function
+```
+按题目要求进行输入输出：
+```cpp
+int main()
+{
+    int t,n;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        cin>>n;
+        vector<int> money(n);
+        for(int j=0;j<n;j++)
+        {
+            cin>>money[i];
+        }
+        cout<<JoeyTakesMoney(money,n)<<endl;
+    }
+    return 0;
+}
 ```
 ### 正确性证明
 假设我们找到了一组$a_i$和$a_j$，使将其替换为1和$a_i*a_j$后数组最大。  
