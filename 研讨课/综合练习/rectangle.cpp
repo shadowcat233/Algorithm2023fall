@@ -9,7 +9,7 @@ typedef struct node{
     int y;
 }node;
 
-int cmp1(node a,node b)
+int cmp(node a,node b)
 {
     return a.x!=b.x?a.x<b.x:a.y<b.y;
 }
@@ -18,7 +18,7 @@ int cmp1(node a,node b)
 int rectangle(vector<node> nodes, int sz, int n, int m)
 {
     int ans = 0;
-    sort(nodes.begin(), nodes.end(), cmp1);
+    sort(nodes.begin(), nodes.end(), cmp);
     for (int i = 0; i < sz - 1; i++)
     {
         int s = (nodes[i + 1].x - nodes[i].x) * m;
