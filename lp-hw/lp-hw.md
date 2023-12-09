@@ -56,8 +56,8 @@ In District 2, at least one point must be selected from A4 and A5;
 In District 3, at least one point must be selected from A6 and A7;
 In District 4, at least two points must be selected from A8, A9, and A10.
 The investment and annual profit for each point Aj vary depending on the location, as shown in the table below. The total investment of the company should not exceed 7.2 million yuan. Which sales points should be selected to maximize the company’s annual profit?
-|A1|A2|A3|A4|A5|A6|A7|A8|A9|A10|
-|--|--|--|--|--|--|--|--|--|--|
+||A1|A2|A3|A4|A5|A6|A7|A8|A9|A10|
+|--|--|--|--|--|--|--|--|--|--|--|
 |Investment|100|120|150|80|70|90|80|140|160|180|
 |Profit|36|40|50|22|20|30|25|48|58|61|  
 ### 作答
