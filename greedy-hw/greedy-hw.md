@@ -264,3 +264,8 @@ int main()
 ### 算法复杂度
 时间复杂度为$O(n)$，空间复杂度（不算输入）为$O(1)$.  
 [^1]:RIP Chandler Muriel Bing
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });
+</script>
