@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/Documents/大学/大三上/算法/算法作业（md）/研讨课/算法基础",
-      "program": "d:/Documents/大学/大三上/算法/算法作业（md）/研讨课/算法基础/build/Debug/outDebug",
+      "cwd": "d:/Documents/大学/大三上/算法/算法作业（md）/研讨课/DP",
+      "program": "d:/Documents/大学/大三上/算法/算法作业（md）/研讨课/DP/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
